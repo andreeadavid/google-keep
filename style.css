@@ -151,7 +151,6 @@ body {
   button {
       background-color: transparent;
       border: none;
-      margin-left: 300px;
   }
 
 .icon-hide {
@@ -186,6 +185,7 @@ body {
 
 
 .notesStyle {
+  width: 230px;
   height: auto;
   background-color: white;
   box-shadow: 1px 3px 3px #888888;
@@ -205,4 +205,24 @@ body {
 
 .icons-new-note:hover {
   opacity: 1;
+}
+
+
+label {
+  cursor: pointer;
+  background-image: url("https://cdn0.iconfinder.com/data/icons/seo-smart-pack/128/grey_new_seo2-38-512.png");
+  background-size: 18px 18px;
+  background-repeat: no-repeat;
+  margin-right: 15px;
+}
+
+#imgFile {
+display: none;
+}
+
+
+.btn-danger {
+  position: absolute;
+  left: 12em;
+  top: 1em;
 }
