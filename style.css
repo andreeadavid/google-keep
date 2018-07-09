@@ -111,7 +111,6 @@ body {
   .note {
     top: 90px;
     margin: 0 auto;
-    position: relative;
     width: 650px;
     border: none;
     padding: 10px;
@@ -185,17 +184,14 @@ body {
 
 
 .notesStyle {
-  width: 230px;
   height: auto;
   background-color: white;
   box-shadow: 1px 3px 3px #888888;
   position: relative;
   top: 150px;
-  left: 150px;
-  margin-bottom: 30px;
   padding: 10px 10px;
   display: inline-block;
-  margin-right: 20px;
+  margin: 10px 4px auto;
 }
 
 .icons-new-note {
@@ -223,6 +219,11 @@ display: none;
 
 .btn-danger {
   position: absolute;
-  left: 12em;
+  left: 13em;
   top: 1em;
+}
+
+.img-fluid {
+  display:block;
+  margin:auto;
 }

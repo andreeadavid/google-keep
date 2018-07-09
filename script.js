@@ -13,6 +13,7 @@ let ulChildren = document.querySelector("#colorUl").children;
 
 const mainNoteTitleElement = document.getElementById('title');
 const mainNoteTextElement = document.getElementById('noteInput');
+const mainNoteInputFileElement = document.getElementById("imgFile");
 
 let container = document.getElementById("container");
 let template = document.querySelector("#myTemplate");
@@ -20,10 +21,13 @@ let newTitle = template.content.querySelector("h4");
 let newNoteText = template.content.querySelector("p");
 let contentDiv = template.content.querySelector("div");
 let button = template.content.querySelector("button");
-
+let img = template.content.querySelector("img");
 
 let state = getStoredState();
 let selectedColor = null;
+let selectedImageSrc = null;
+
+
 
 window.addEventListener('unload', () => {
     storeToLocalStorage(state)
@@ -36,7 +40,6 @@ function storeToLocalStorage(state) {
 function getStoredState() {
     return JSON.parse(localStorage.getItem("state"));
 }
-
 
 function displayColors() {
     colorDiv.style.display = "block";
@@ -69,32 +72,139 @@ input.onmouseenter = function () {
         if (toggle) {
             return;
         }
-        mainNoteTitleElement.style.display = "block";
-        iconsEdit.style.display = "block";
-        buttonClose.style.display = "block";
-        iconsHide.style.display = "none";
-        input.style.height = 'auto';
-        toggle = true;
+        showDisplay();
     }
 }
 
 
 input.onmouseleave = function () {
     document.onclick = function () {
-        mainNoteTitleElement.style.display = "none";
-        iconsEdit.style.display = "none";
-        buttonClose.style.display = "none";
-        iconsHide.style.display = "block";
-        input.style.height = "60px";
+        
+        hideDisplay();
         toggle = false;
-
-        if (note.value !== "") {
+        input.style.backgroundColor = "#FFFFFF";
+        mainNoteTitleElement.style.backgroundColor = "#FFFFFF";
+        note.style.backgroundColor = "#FFFFFF";
+        
+       if (note.value !== "") {
             storeNewNote();
             clearMainNote();
             rerender();
         }
     }
 }
+
+buttonClose.addEventListener("click", function () {
+    hideDisplay();
+})
+
+function showDisplay() {
+    mainNoteTitleElement.style.display = "block";
+    iconsEdit.style.display = "block";
+    buttonClose.style.display = "block";
+    iconsHide.style.display = "none";
+    input.style.height = 'auto';
+    toggle = true;
+    mainNoteInputFileElement.onchange = changeSrc;
+}
+
+function hideDisplay() {
+    mainNoteTitleElement.style.display = "none";
+    iconsEdit.style.display = "none";
+    buttonClose.style.display = "none";
+    iconsHide.style.display = "block";
+    input.style.height = "60px";
+}
+
+
+function storeNewNote() {
+    const newNote = {
+        id: guid(),
+        title: mainNoteTitleElement.value,
+        text: mainNoteTextElement.value,
+        color: selectedColor,
+        imageSrc: selectedImageSrc
+    };
+
+    storeNote(newNote);
+}
+
+function render() {
+    state.map(note => {
+        injectIntoDom(note);
+    })
+
+    selectedImageSrc = "";
+}
+
+render();
+
+function rerender() {
+    clearDom();
+    render();
+}
+
+function clearDom() {
+    container.innerHTML = '';
+}
+
+function injectIntoDom(note) {
+    newNoteText.innerHTML = note.text;
+    newTitle.innerHTML = note.title;
+    contentDiv.id = note.id;
+    contentDiv.style.backgroundColor = note.color;
+    button.id = 'btn__' + note.id;
+    img.src = note.imageSrc;
+    let clone = document.importNode(template.content, true);
+    container.appendChild(clone);
+
+    const cross = document.querySelector('#btn__' + note.id);
+    cross.addEventListener("click", deleteNote.bind(null, note)); 
+}
+
+function changeSrc() {
+    var reader = new FileReader();
+        reader.readAsDataURL(mainNoteInputFileElement.files[0]);
+        reader.onloadend = function (event) {
+            debugger;
+            selectedImageSrc = event.target.result;
+        }
+}
+
+
+function clearMainNote() {
+    note.value = "";
+    mainNoteTitleElement.value = "";
+}
+
+
+function deleteNote(note) {
+    for (let i = 0; i < state.length; i++) {
+        if (state[i] == note) {
+            state.splice(i, 1);
+        }
+    };
+    rerender();
+}
+
+
+function storeNote(note) {
+    state.push(note);
+}
+
+
+function guid() {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+
+
+
 
 // function createContent() {
 //     let template = document.querySelector("#myTemplate");
@@ -142,104 +252,6 @@ input.onmouseleave = function () {
 //     clearMainNote();
 //     img.value = "";
 // }
-
-function storeNewNote() {
-    const newNote = {
-        id: guid(),
-        title: mainNoteTitleElement.value,
-        text: mainNoteTextElement.value,
-        color: selectedColor
-    };
-
-    storeNote(newNote);
-}
-
-function render() {
-    state.map(note => {
-        injectIntoDom(note);
-    })
-}
-
-render();
-
-function rerender() {
-    clearDom();
-    render();
-}
-
-function clearDom() {
-    container.innerHTML = '';
-}
-
-
-function injectIntoDom(note) {
-    newNoteText.innerHTML = note.text;
-    newTitle.innerHTML = note.title;
-    contentDiv.id = note.id;
-    contentDiv.style.backgroundColor = note.color;
-    button.id = 'btn__' + note.id;
-    let img = template.content.querySelector("img");
-    let input = document.getElementById("imgFile");
-    let clone = document.importNode(template.content, true);
-    container.appendChild(clone);
-
-    const cross = document.querySelector('#btn__' + note.id);
-    cross.addEventListener("click", deleteNote.bind(null, note));
-
-    if (input.value !== "") {
-        var reader = new FileReader();
-        reader.readAsDataURL(input.files[0]);
-        reader.onloadend = function (event) {
-            img.src = event.target.result;
-            input.value = "";
-            clone = document.importNode(template.content, true);
-        }
-    }else {
-        clone = document.importNode(template.content, true);
-    } 
-}
-
-
-function clearMainNote() {
-    note.value = "";
-    mainNoteTitleElement.value = "";
-}
-
-
-function deleteNote(note) {
-    for (let i = 0; i < state.length; i++) {
-        if (state[i] == note) {
-            state.splice(i, 1);
-        }
-    };
-    console.log(state)
-    rerender();
-}
-
-
-function storeNote(note) {
-    state.push(note);
-}
-
-
-function guid() {
-    function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-}
-
-
-
-buttonClose.addEventListener("click", function () {
-    mainNoteTitleElement.style.display = "none";
-    iconsEdit.style.display = "none";
-    buttonClose.style.display = "none";
-    iconsHide.style.display = "block";
-    input.style.height = "60px";
-})
 
 
 
