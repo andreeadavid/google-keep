@@ -1,0 +1,235 @@
+@import './node_modules/bootstrap/scss/bootstrap';
+
+body {
+    background-color: #e8e8e8 ;
+  }
+
+  nav.navbar.navbar-expand-lg {
+    font-family: 'Noto Sans', sans-serif;  
+    background-color: #fb0;
+  }
+  
+  .menu {
+    float: left; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .menu a{
+    float: left; 
+    color: rgba(0, 0, 0, 0.7); 
+    border-radius: 50%;   
+  }
+  
+  .menu a:hover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px; 
+    background-color: rgba(0, 0, 0, 0.1); 
+    transition: all .5s;
+  }
+  
+  .logo{
+    margin: 0 40px;
+    float: left; 
+  }
+  
+  .logo .google {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  .logo .keep {
+    font-size: 1.5em;
+  }
+  
+  .search {
+    position: relative;  
+    height: 50px;
+    width: 40%;
+    float: left; 
+  }
+
+  .search-input {
+    margin-left: 1em;
+    font-size: 18px;
+    border: none;
+    background: none;
+    height: 100%;
+    width: 100%;
+    float: left; 
+    background: rgba(0,0,0,0.1); 
+    line-height: 3em;
+    padding-left: 1em;  
+    border-radius: 7px;
+    text-indent: 3em;
+    transition: all .7s  
+  }
+
+  input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  input:focus {
+    background-color: white;
+    animation-duration: 3s;  
+  }
+  
+  .search-icon {
+    position: relative;
+    top: -1.7em;
+    left: 2em;
+    color: rgba(0, 0, 0, 0.5);  
+    font-size: 20px;
+  }
+  
+  .icones{
+    float: right;
+  }
+  
+  .icones li {
+    display: inline-block;
+    margin: 0 1em;  
+    color: rgba(0, 0, 0, 0.5);   
+  }
+  
+  .icones1 {
+    margin-left: 2.5em;
+  }
+  
+  .icones a {
+    color: rgba(0, 0, 0, 0.5);   
+  }
+  
+  .icones a:hover {
+    color: rgba(0, 0, 0, 1);   
+  }
+
+  .note {
+    top: 90px;
+    margin: 0 auto;
+    width: 650px;
+    border: none;
+    padding: 10px;
+    box-shadow: 1px 3px 3px #888888;
+    flex-grow:2;
+    background-color: white;
+  }
+
+  .input-text {
+    border: none;
+    width: 300px;
+    margin-top: 4px;
+  }
+
+  .icon-wrapper{
+    position: relative; 
+    color: rgba(0, 0, 0, 0.5);  
+    font-size: 20px;
+    top: -.2em;
+    right: -1em;
+  }
+
+  .icon-input {
+      margin-right: 23px;
+  }
+
+  .title {
+      border: none;
+      font-weight: bold;
+      font-size: 18px;
+  }
+
+  input:focus, button:focus, p:focus, h4:focus {
+    outline: none;
+  }
+
+  button {
+      background-color: transparent;
+      border: none;
+  }
+
+.icon-hide {
+    display: none;
+    position: relative;
+    left: 24em;
+    top: -2.2em;
+}
+
+.dot {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.icons-color {
+  height: 100px;
+    width: 127px;
+    background-color: white;
+    border: 1px solid rgb(233, 233, 233);
+    padding: 1px 0 0 1px;
+    display: none;
+    position: absolute;
+    left: 8em;
+    bottom: 4em;
+}
+
+.icons-color ul {
+  padding: 3px 2px 3px 2px;
+}
+
+
+.notesStyle {
+  height: auto;
+  background-color: white;
+  box-shadow: 1px 3px 3px #888888;
+  position: relative;
+  top: 150px;
+  padding: 10px 10px;
+  display: inline-block;
+  margin: 10px 4px auto;
+}
+
+.icons-new-note {
+  opacity: 0;
+  color: rgba(0, 0, 0, 0.5);  
+}
+
+.icons-new-note:hover {
+  opacity: 1;
+}
+
+
+label {
+  cursor: pointer;
+  background-image: url("https://cdn0.iconfinder.com/data/icons/seo-smart-pack/128/grey_new_seo2-38-512.png");
+  background-size: 18px 18px;
+  background-repeat: no-repeat;
+  margin-right: 15px;
+}
+
+#imgFile {
+display: none;
+}
+
+
+.btn-danger {
+  position: absolute;
+  left: 13em;
+  top: 1em;
+}
+
+.img-fluid {
+  display:block;
+  margin:auto;
+}
+
+.border-li {
+  border: 1px solid black;
+}
