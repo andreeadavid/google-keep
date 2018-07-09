@@ -79,7 +79,6 @@ input.onmouseenter = function () {
 
 input.onmouseleave = function () {
     document.onclick = function () {
-
         hideDisplay();
         toggle = false;
         input.style.backgroundColor = "#FFFFFF";
