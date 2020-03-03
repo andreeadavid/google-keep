@@ -129,7 +129,6 @@ function storeNewNote() {
 }
 
 function render() {
-    debugger;
     state.map(note => {
         injectIntoDom(note);
     })
